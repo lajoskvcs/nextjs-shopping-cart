@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { Product } from '@/types'
 import styles from './ProductCard.module.scss'
 import { useRouter } from 'next/router'
+import { useAppContext } from '@/store'
 
 type ProductComponentProps = {
 	data: Product
@@ -9,8 +10,14 @@ type ProductComponentProps = {
 
 export default function ProductCard({ data }: ProductComponentProps) {
 	const router = useRouter()
+	const appContext = useAppContext()
+	const productPageQuery = router.query.page ? parseInt(router.query.page.toString()) : null
 
-	const navigateToProductPage = (gtin: string) => router.push(`/${gtin}`)
+	const navigateToProductPage = (gtin: string) => {
+		console.log(productPageQuery)
+		appContext.setPreviousProductPage(productPageQuery)
+		router.push(`/${gtin}`)
+	}
 
 	return (
 		<div className={`${styles.productCard}`} onClick={() => navigateToProductPage(data.gtin)}>

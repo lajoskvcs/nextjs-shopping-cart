@@ -1,15 +1,14 @@
-import useSWR from 'swr'
 import { ProductsResponse } from '@/types'
 import ProductCard from '@/pageComponents/products/ProductCard'
 
 import styles from './ProductList.module.scss'
 
-function fetcher (input: RequestInfo, init?: RequestInit): any {
-	return fetch(input, init).then(res => res.json())
+type ProductListProps = {
+	data?: ProductsResponse
+	error: any
 }
 
-export default function ProductList () {
-	const { data, error } = useSWR<ProductsResponse>(`/api/products`, fetcher);
+export default function ProductList ({error, data}: ProductListProps) {
 
 	if (error) return <div>failed to load</div>
 	if (!data) return <div>loading...</div>
