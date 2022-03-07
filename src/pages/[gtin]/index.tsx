@@ -7,7 +7,6 @@ import Link from 'next/link'
 import Layout from '@/components/Layout'
 import ProductInfo from '@/pageComponents/product/ProductInfo'
 
-import styles from './productPage.module.scss'
 import { useAppContext } from '@/store'
 
 export async function getServerSideProps(context: NextPageContext) {
@@ -46,11 +45,11 @@ function ProductPage ({ productData, errorCode }: ProductPageProps) {
 
 	return (
 		<Layout>
-			<div className={styles.breadcrumb}>
-				<div className={styles.breadcrumbLink}>
-					<Link href={productHref}>Products</Link>
-				</div>
-				<li>{gtin}</li>
+			<div className="text-sm breadcrumbs">
+				<ul>
+					<li><Link href={productHref}>Products</Link></li>
+					<li>{gtin}</li>
+				</ul>
 			</div>
 			<ProductInfo gtin={gtin} productData={productData} />
 		</Layout>
