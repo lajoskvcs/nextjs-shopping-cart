@@ -1,7 +1,8 @@
 module.exports = {
   mode: 'jit',
-  purge: ['./src/pages/**/*.tsx', './src/components/**/*.tsx'],
-  darkMode: false,
+  content: [
+      './src/pages/**/*.tsx', './src/components/**/*.tsx'
+  ],
   theme: {
     screens: {
       sm: '640px',
@@ -14,5 +15,5 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [require("daisyui")],
+  plugins: [require("@tailwindcss/typography"), require("daisyui")],
 };
