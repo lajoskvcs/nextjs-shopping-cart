@@ -1,9 +1,13 @@
-import Layout from '../components/Layout';
+import Layout from '../components/Layout'
+import ProductList from '../components/pages/products/ProductList'
 
-const HomePage = () => (
-  <Layout>
-    <h1>Products</h1>
-  </Layout>
-);
+function HomePage () {
+	return (
+		<Layout>
+			<h1>Products</h1>
+			<ProductList />
+		</Layout>
+	)
+}
 
-export default HomePage;
+export default HomePage

@@ -1,0 +1,12 @@
+.productCard {
+  @apply shadow-lg flex flex-col p-5 hover:scale-105 bg-white transition-transform;
+  &Image {
+    @apply p-12;
+  }
+  &Name {
+    @apply p-5 flex-grow;
+  }
+  &Price {
+    @apply text-center font-bold;
+  }
+}

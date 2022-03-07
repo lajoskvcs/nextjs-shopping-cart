@@ -1,0 +1,14 @@
+.productList {
+    @apply grid
+        grid-cols-1
+        gap-4
+        p-5;
+
+    @screen md {
+        @apply grid-cols-3;
+    }
+
+    @screen lg {
+        @apply grid-cols-4;
+    }
+}
