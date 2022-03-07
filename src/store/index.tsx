@@ -21,11 +21,13 @@ type AppContextProviderProps = {
 }
 
 export function AppContextProvider({ children }: AppContextProviderProps) {
-	const [cart, setCart] = useState<CartItem[]>([])
-
+	let initialCartState = []
 	if (typeof window !== 'undefined') {
-		setCart(fetchCartFromStorage())
+		initialCartState = fetchCartFromStorage()
 	}
+
+	const [cart, setCart] = useState<CartItem[]>(initialCartState)
+
 
 
 	const addItemToTheCart = function (product: Product, quantity: number) {
