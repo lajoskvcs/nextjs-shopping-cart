@@ -45,14 +45,16 @@ function ProductInfo ({ productData, gtin }: ProductInfoProps) {
 			<div>{data.categoryName}</div>
 			<div>{data.brandName}</div>
 			<div>{data.recommendedRetailPrice} {data.recommendedRetailPriceCurrency}</div>
-			<div className="flex">
-				<input type="number" placeholder="Type here"
-					   className="input input-bordered input-primary w-full max-w-xs"
-					   value={quantity}
-					   min="1"
-					   onChange={(e) => {setQuantity(parseInt(e.target.value))}}
-				/>
-				<button className="btn btn-secondary" onClick={() => addToCart()}>Add to cart</button>
+			<div className="form-control">
+				<div className="input-group">
+					<input type="number" placeholder="Type here"
+						   className="input input-bordered input-primary w-full max-w-xs"
+						   value={quantity}
+						   min="1"
+						   onChange={(e) => {setQuantity(parseInt(e.target.value))}}
+					/>
+					<button className="btn btn-secondary" onClick={() => addToCart()}>Add to cart</button>
+				</div>
 			</div>
 		</div>
 	)
