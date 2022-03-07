@@ -1,12 +1,13 @@
 import Link from 'next/link';
+import { ReactNode } from 'react'
 
 type Props = {
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
 const Layout = ({ children }: Props) => (
   <div className="container mx-auto px-4">
-    <div className="flex justify-between">
+    <div className="flex justify-between border-1 border-gray-500 border-b p-5">
       <strong>Qogita</strong>
       <nav>
         <ul className="flex gap-4">

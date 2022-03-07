@@ -1,15 +1,19 @@
 import Image from 'next/image'
 import { Product } from '@/types'
 import styles from './ProductCard.module.scss'
+import { useRouter } from 'next/router'
 
 type ProductComponentProps = {
 	data: Product
 }
 
 export default function ProductCard({ data }: ProductComponentProps) {
-	console.log({styles})
+	const router = useRouter()
+
+	const navigateToProductPage = (gtin: string) => router.push(`/${gtin}`)
+
 	return (
-		<div className={styles.productCard}>
+		<div className={`${styles.productCard}`} onClick={() => navigateToProductPage(data.gtin)}>
 			<div className={styles.productCardImage}>
 				<Image
 					src={data.imageUrl}
