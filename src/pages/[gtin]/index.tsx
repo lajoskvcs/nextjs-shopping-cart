@@ -44,7 +44,7 @@ function ProductPage ({ productData, errorCode }: ProductPageProps) {
 	}
 
 	return (
-		<Layout>
+		<>
 			<div className="text-sm breadcrumbs">
 				<ul>
 					<li><Link href={productHref}>Products</Link></li>
@@ -52,7 +52,7 @@ function ProductPage ({ productData, errorCode }: ProductPageProps) {
 				</ul>
 			</div>
 			<ProductInfo gtin={gtin} productData={productData} />
-		</Layout>
+		</>
 	)
 }
 

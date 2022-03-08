@@ -3,16 +3,18 @@ import { ReactNode, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useAppContext } from '@/store'
 
+import AnimatedCartTotal from '@/ui/AnimatedCartTotal'
+
 type Props = {
 	children: ReactNode;
 };
 
 const Layout = ({children}: Props) => {
 	const appContext = useAppContext()
-	const [numberOfCartElements, setNumberOfCartElements] = useState(0)
+	const [cartTotal, setCartTotal] = useState(0)
 	// NOTE: Prevent hydration error
 	useEffect(() => {
-		setNumberOfCartElements(appContext.cart.length)
+		setCartTotal(appContext.cart.reduce((total, currentValue) => total + currentValue.recommendedRetailPrice * currentValue.quantity, 0))
 	})
 	return (
 		<div className="container mx-auto px-4">
@@ -27,7 +29,7 @@ const Layout = ({children}: Props) => {
 						</li>
 						<li>
 							<Link href="/cart">
-								<a className="underline">Your Cart({numberOfCartElements})</a>
+								<a className="underline">Your Cart <AnimatedCartTotal value={cartTotal} currency="EUR"/></a>
 							</Link>
 						</li>
 					</ul>

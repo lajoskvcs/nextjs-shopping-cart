@@ -1,33 +1,51 @@
-import Layout from '../components/Layout'
 import ProductList from '../components/pages/products/ProductList'
 import Pagination from '@/ui/Pagination'
 import { useRouter } from 'next/router'
+import Error from 'next/error'
 import useSWR from 'swr'
 import { ProductsResponse } from '@/types'
-import { fetcher } from '@/utils/fetcher'
+import { fetcher, FetcherError } from '@/utils/fetcher'
 
-function HomePage () {
-	const router = useRouter()
-	const { query } = router
-	const page = query.page ? parseInt(query.page.toString()) : 1
-	const { data, error } = useSWR<ProductsResponse>(`/api/products?page=${page}`, fetcher);
+function ProductListContainer ({ data, page }: { data?: ProductsResponse, page: number }) {
+	if(!data) return <></>
 
-	const Paginator = ({error, data}: {error: any, data?: ProductsResponse}) => {
-		if(error || !data) return (<></>)
+	const Paginator = ({count}: {count: number}) => {
 		return (
 			<div className="flex justify-center">
-				<Pagination page={page} count={data.count} />
+				<Pagination page={page} count={count} />
 			</div>
 		)
 	}
 
 	return (
-		<Layout>
-			<h1>Products</h1>
-			<Paginator error={error} data={data} />
-			<ProductList data={data} error={error} />
-			<Paginator error={error} data={data} />
-		</Layout>
+		<>
+			<Paginator count={data.count} />
+			<ProductList data={data} />
+			<Paginator count={data.count} />
+		</>
+	)
+}
+
+function HomePage () {
+	const router = useRouter()
+	const { query } = router
+	const page = query.page ? parseInt(query.page.toString()) : 1
+	const { data, error } = useSWR<ProductsResponse, FetcherError>(`/api/products?page=${page}`, fetcher);
+
+	if (error) return <Error statusCode={error.status} />
+
+	const displayContainer = (!data) ? <div>loading...</div> : <ProductListContainer data={data} page={page} />
+
+	return (
+		<>
+			<div className="flex justify-between">
+				<h1>Products</h1>
+				<div>
+					<span>Items per page: 20</span>
+				</div>
+			</div>
+			{displayContainer}
+		</>
 	)
 }
 
