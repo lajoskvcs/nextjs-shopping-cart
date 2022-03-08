@@ -34,8 +34,10 @@ export default function ProductCard({ data }: ProductComponentProps) {
 				/>
 			</div>
 			<div className={styles.productCardName}>{data.name}</div>
-			<div className={styles.productCardPrice}>{ data.recommendedRetailPrice } {data.recommendedRetailPriceCurrency}</div>
-			<button className="btn btn-wide" onClick={(e) => {e.stopPropagation(); addToCart()}}>Add to cart</button>
+			<div className="flex justify-between items-baseline">
+				<div className={styles.productCardPrice}>{ data.recommendedRetailPrice } {data.recommendedRetailPriceCurrency}</div>
+				<button className="btn btn-primary" onClick={(e) => {e.stopPropagation(); addToCart()}}>Add to cart</button>
+			</div>
 		</div>
 	)
 }
