@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import anime from 'animejs'
+import { roundFn } from '@/utils/roundFn'
 
 type AnimatedCartTotalProps = {
 	value: number
@@ -14,9 +15,8 @@ function AnimatedCartTotal({value, currency}: AnimatedCartTotalProps) {
 			targets: targetObject,
 			displayValue: value,
 			easing: 'easeInOutQuad',
-			round: 4,
 			update: function() {
-				setDisplayValue(targetObject.displayValue)
+				setDisplayValue(roundFn(targetObject.displayValue))
 			}
 		})
 	}, [value])

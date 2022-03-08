@@ -7,13 +7,21 @@ interface AppContextInterface {
 	previousProductPage: number | null
 	setPreviousProductPage: Dispatch<SetStateAction<number | null>>
 	addItemToTheCart: (product: Product, quantity: number) => void
+	removeAllItemsFromTheCart: () => void
+	removeItemFromTheCart: (gtin: string) => void
+	increaseItemQuantityInTheCart: (gtin: string) => void
+	decreaseItemQuantityInTheCart: (gtin: string) => void
 }
 
 const AppContext = createContext<AppContextInterface>({
 	cart: [],
 	previousProductPage: null,
 	setPreviousProductPage: () => {},
-	addItemToTheCart: (product: Product, quantity: number) => {}
+	addItemToTheCart: (product: Product, quantity: number) => {},
+	removeAllItemsFromTheCart: () => {},
+	removeItemFromTheCart: (gtin: string) => {},
+	increaseItemQuantityInTheCart: (gtin: string) => {},
+	decreaseItemQuantityInTheCart: (gtin: string) => {}
 })
 
 type AppContextProviderProps = {
@@ -28,9 +36,7 @@ export function AppContextProvider({ children }: AppContextProviderProps) {
 
 	const [cart, setCart] = useState<CartItem[]>(initialCartState)
 
-
-
-	const addItemToTheCart = function (product: Product, quantity: number) {
+	const addItemToTheCart = (product: Product, quantity: number) => {
 		const productIndex = cart.findIndex(cartItem => cartItem.gtin === product.gtin)
 		const newCart: CartItem[] = []
 		newCart.push(...cart)
@@ -43,6 +49,44 @@ export function AppContextProvider({ children }: AppContextProviderProps) {
 		saveCartToStorage(newCart)
 	}
 
+	const removeAllItemsFromTheCart = () => {
+		setCart([])
+		saveCartToStorage([])
+	}
+
+	const removeItemFromTheCart = (gtin: string) => {
+		const productIndex = cart.findIndex(cartItem => cartItem.gtin === gtin)
+		if(productIndex === -1) return
+
+		const newCart: CartItem[] = []
+		newCart.push(...cart)
+		newCart.splice(productIndex, 1)
+		setCart(newCart)
+		saveCartToStorage(newCart)
+	}
+	const increaseItemQuantityInTheCart = (gtin: string) => {
+		const productIndex = cart.findIndex(cartItem => cartItem.gtin === gtin)
+		if(productIndex === -1) return
+		const newCart: CartItem[] = []
+		newCart.push(...cart)
+		newCart[productIndex].quantity += 1
+		setCart(newCart)
+		saveCartToStorage(newCart)
+	}
+	const decreaseItemQuantityInTheCart = (gtin: string) => {
+		const productIndex = cart.findIndex(cartItem => cartItem.gtin === gtin)
+		if(productIndex === -1) return
+		const newCart: CartItem[] = []
+		newCart.push(...cart)
+		if(newCart[productIndex].quantity - 1 <= 0) {
+			newCart.splice(productIndex, 1)
+		} else {
+			newCart[productIndex].quantity -= 1
+		}
+		setCart(newCart)
+		saveCartToStorage(newCart)
+	}
+
 	const [previousProductPage, setPreviousProductPage] = useState<number | null>(null)
 	return (
 		<AppContext.Provider
@@ -50,7 +94,11 @@ export function AppContextProvider({ children }: AppContextProviderProps) {
 				cart,
 				previousProductPage,
 				setPreviousProductPage,
-				addItemToTheCart
+				addItemToTheCart,
+				removeAllItemsFromTheCart,
+				removeItemFromTheCart,
+				increaseItemQuantityInTheCart,
+				decreaseItemQuantityInTheCart
 			}}
 		>
 			{children}

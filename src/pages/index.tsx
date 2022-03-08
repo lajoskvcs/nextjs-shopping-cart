@@ -38,8 +38,7 @@ function HomePage () {
 
 	return (
 		<>
-			<div className="flex justify-between">
-				<h1>Products</h1>
+			<div className="flex justify-end mt-5">
 				<div>
 					<span>Items per page: 20</span>
 				</div>
