@@ -4,36 +4,40 @@ import Link from 'next/link'
 import { useAppContext } from '@/store'
 
 import AnimatedCartTotal from '@/ui/AnimatedCartTotal'
+import { useRouter } from 'next/router'
 
 type Props = {
 	children: ReactNode;
 };
 
 const Layout = ({children}: Props) => {
+	const router = useRouter()
 	const appContext = useAppContext()
 	const [cartTotal, setCartTotal] = useState(0)
 	// NOTE: Prevent hydration error
 	useEffect(() => {
 		setCartTotal(appContext.cart.reduce((total, currentValue) => total + currentValue.recommendedRetailPrice * currentValue.quantity, 0))
 	})
+	const navigateTo = (url: string) => router.push(url)
 	return (
 		<div className="container mx-auto px-4">
-			<div className="flex justify-between border-1 border-gray-500 border-b p-5">
-				<strong>Qogita</strong>
-				<nav>
-					<ul className="flex gap-4">
-						<li>
-							<Link href="/">
-								<a className="underline">Products</a>
-							</Link>
-						</li>
-						<li>
-							<Link href="/cart">
-								<a className="underline">Your Cart <AnimatedCartTotal value={cartTotal} currency="EUR"/></a>
-							</Link>
-						</li>
+			<div className="navbar bg-base-100">
+				<div className="navbar-start">
+					<a className="normal-case text-xl">Qogita</a>
+				</div>
+				<div className="navbar-center hidden lg:flex">
+					<ul className="menu menu-horizontal p-0">
+						<li><Link href="/"><a className={(router.route === '/') ? 'active' : ''}>Products</a></Link></li>
 					</ul>
-				</nav>
+				</div>
+				<div className="navbar-end">
+					<div className="indicator">
+						<AnimatedCartTotal value={cartTotal} currency="EUR"/>
+						<button className={`btn ${(router.route === '/cart') ? 'btn-primary' : ''}`} onClick={() => navigateTo('/cart')}>
+							Your Cart
+						</button>
+					</div>
+				</div>
 			</div>
 			{children}
 		</div>

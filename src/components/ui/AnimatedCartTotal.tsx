@@ -21,7 +21,7 @@ function AnimatedCartTotal({value, currency}: AnimatedCartTotalProps) {
 		})
 	}, [value])
 
-	return <span className="badge badge-md">{displayValue} {currency}</span>
+	return <span className="indicator-item indicator-bottom badge badge-secondary">{displayValue}€</span>
 }
 
 export default AnimatedCartTotal
