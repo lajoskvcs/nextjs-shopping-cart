@@ -4,6 +4,8 @@ Congratulations on reaching the technical challenge stage of the interview proce
 
 We are excited to potentially have you join the Engineering team, where you will work alongside brilliant people to build a revolutionary global wholesale B2B platform.
 
+[Assumptions](ASSUMPTIONS.md)
+
 ## Background
 
 This challenge is built around the front-end stack we use at Qogita – [TypeScript](https://www.typescriptlang.org/), [React](https://reactjs.org/), [Next.js](https://nextjs.org/), and [Tailwind CSS](https://tailwindcss.com/).
