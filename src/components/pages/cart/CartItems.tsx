@@ -35,11 +35,11 @@ function CartItems({cart}: CartItemsProps) {
 					<br/>
 					<span className="badge badge-ghost badge-sm">Category: {cartItem.categoryName}</span>
 				</td>
-				<td>{cartItem.quantity}</td>
 				<td>{cartItem.recommendedRetailPrice} {cartItem.recommendedRetailPriceCurrency}</td>
 				<th>
 					<div className="flex justify-between">
 						<button className="btn btn-info btn-xs" onClick={() => appContext.decreaseItemQuantityInTheCart(cartItem.gtin)}>-</button>
+						<span>{cartItem.quantity}</span>
 						<button className="btn btn-info btn-xs" onClick={() => appContext.increaseItemQuantityInTheCart(cartItem.gtin)}>+</button>
 					</div>
 					<button className="btn btn-error btn-xs w-full" onClick={() => appContext.removeItemFromTheCart(cartItem.gtin)}>Remove</button>
@@ -56,7 +56,6 @@ function CartItems({cart}: CartItemsProps) {
 				<tr>
 					<th>Name</th>
 					<th>Additional info</th>
-					<th>Quantity</th>
 					<th>Price</th>
 					<th>
 						{
@@ -70,7 +69,6 @@ function CartItems({cart}: CartItemsProps) {
 				</tbody>
 				<tfoot>
 				<tr>
-					<th></th>
 					<th></th>
 					<th></th>
 					<th>Total: {cartTotal} EUR</th>
