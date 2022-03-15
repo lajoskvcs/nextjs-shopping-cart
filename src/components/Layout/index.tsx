@@ -18,7 +18,6 @@ const Layout = ({children}: Props) => {
 	useEffect(() => {
 		setCartTotal(appContext.cart.reduce((total, currentValue) => total + currentValue.recommendedRetailPrice * currentValue.quantity, 0))
 	})
-	const navigateTo = (url: string) => router.push(url)
 	return (
 		<div className="container mx-auto px-4">
 			<div className="navbar bg-base-100">
@@ -33,9 +32,11 @@ const Layout = ({children}: Props) => {
 				<div className="navbar-end">
 					<div className="indicator">
 						<AnimatedCartTotal value={cartTotal} currency="EUR"/>
-						<button className={`btn ${(router.route === '/cart') ? 'btn-primary' : ''}`} onClick={() => navigateTo('/cart')}>
-							Your Cart
-						</button>
+						<Link href="/cart">
+							<a className={`btn ${(router.route === '/cart') ? 'btn-primary' : ''}`}>
+								Your Cart
+							</a>
+						</Link>
 					</div>
 				</div>
 			</div>

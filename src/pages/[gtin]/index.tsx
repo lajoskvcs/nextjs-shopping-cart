@@ -4,7 +4,6 @@ import { NextPageContext } from 'next'
 import { Product } from '@/types'
 
 import Link from 'next/link'
-import Layout from '@/components/Layout'
 import ProductInfo from '@/pageComponents/product/ProductInfo'
 
 import { useAppContext } from '@/store'

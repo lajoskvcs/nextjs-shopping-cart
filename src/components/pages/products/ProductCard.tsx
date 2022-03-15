@@ -3,7 +3,6 @@ import { Product } from '@/types'
 import styles from './ProductCard.module.scss'
 import { useRouter } from 'next/router'
 import { useAppContext } from '@/store'
-import { MouseEventHandler } from 'react'
 
 type ProductComponentProps = {
 	data: Product
@@ -24,7 +23,7 @@ export default function ProductCard({ data }: ProductComponentProps) {
 	}
 
 	return (
-		<div className={`${styles.productCard}`} onClick={() => navigateToProductPage(data.gtin)}>
+		<a className={`${styles.productCard}`} onClick={() => navigateToProductPage(data.gtin)}>
 			<div className={styles.productCardImage}>
 				<Image
 					src={data.imageUrl}
@@ -38,6 +37,6 @@ export default function ProductCard({ data }: ProductComponentProps) {
 				<div className={styles.productCardPrice}>{ data.recommendedRetailPrice } {data.recommendedRetailPriceCurrency}</div>
 				<button className="btn btn-primary" onClick={(e) => {e.stopPropagation(); addToCart()}}>Add to cart</button>
 			</div>
-		</div>
+		</a>
 	)
 }

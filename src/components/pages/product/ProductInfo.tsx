@@ -3,9 +3,7 @@ import Image from 'next/image'
 import { Product } from '@/types'
 import { useState } from 'react'
 import { useAppContext } from '@/store'
-function fetcher (input: RequestInfo, init?: RequestInit): any {
-	return fetch(input, init).then(res => res.json())
-}
+import { fetcher } from '@/utils/fetcher'
 
 type ProductInfoProps = {
 	gtin: string
